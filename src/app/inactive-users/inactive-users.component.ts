@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { CounterService } from '../counter.service';
 
@@ -8,8 +8,8 @@ import { CounterService } from '../counter.service';
   templateUrl: './inactive-users.component.html',
   styleUrls: ['./inactive-users.component.css']
 })
-export class InactiveUsersComponent {
-   @Input() users?: string[];
+export class InactiveUsersComponent implements OnInit{
+   users?: string[];
    inActiveCount = 0;
 
   constructor(private userService: UserService, private counterService: CounterService){
@@ -17,6 +17,11 @@ export class InactiveUsersComponent {
       (count:number) => this.inActiveCount = count
     );
   }
+
+  ngOnInit(): void {
+      this.users = this.userService.inActiveUsers
+  }
+
 
   onSetToActive(id: number) {
     this.userService.addToActiveUsers(id)

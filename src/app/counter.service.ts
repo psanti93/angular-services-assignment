@@ -6,15 +6,19 @@ export class CounterService {
   //I want to subscribe whenver an event is emitted on going active -> inactive
   // inactive - > active
   // have these be subscribed to by the active in active components respectivel
+  inactiveCount = 0;
+  activeCount = 0;
   activeToInactiveEmit = new EventEmitter<Number>();
   inactiveToActiveEmit = new EventEmitter<Number>();
 
 
-  activeToInActiveUserCount(count: number){
-    this.activeToInactiveEmit.emit(count);
+  activeToInActiveIncrement(){
+    this.inactiveCount++;
+    this.activeToInactiveEmit.emit(this.inactiveCount);
   }
 
-  inActiveToActiveUserCount(count: number){
-    this.inactiveToActiveEmit.emit(count);
+  inActiveToActiveIncrement(){
+    this.activeCount++
+    this.inactiveToActiveEmit.emit(this.activeCount);
   }
 }
